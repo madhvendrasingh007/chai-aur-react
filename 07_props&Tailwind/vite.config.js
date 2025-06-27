@@ -4,8 +4,14 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",  // Tell Tailwind to scan these files
+  ],
+  theme: {
+    extend: {},
+  },
   plugins: [
-    react(),
     tailwindcss(),
+    react()
   ],
 })
