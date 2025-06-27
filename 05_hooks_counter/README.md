@@ -110,6 +110,84 @@ const removeValue = () => {
 - When clicked, they call their respective functions
 - The display updates automatically thanks to React's reactivity
 
+---
+
+Certainly! Here's a clear and detailed explanation of why the first syntax only updates the state once, followed by a polished version you can directly use as a **note** in your README.
+
+---
+
+### 🔍 IMPORTANT ⚠️ NOTE
+
+In React, calling `setCount(count + 1)` multiple times in the same synchronous execution block **does not guarantee** that the `count` value used will be updated with each call. Instead, React **batches** these state updates and uses the **initial value of `count`** from when the component function was run.
+
+Let’s say your initial state is:
+
+```js
+const [count, setCount] = useState(69);
+```
+
+#### 🧠 What happens with direct update syntax:
+
+```js
+setCount(count + 1);
+setCount(count + 1);
+setCount(count + 1);
+```
+
+* Here, `count` is **still 69** in each line, because React hasn't updated the state yet.
+* So all three calls effectively become `setCount(70)`.
+* React sees that the value doesn't change after the first update (from 69 → 70) and **ignores** the redundant updates.
+* Final state = **70**
+
+#### ✅ What happens with functional update syntax:
+
+```js
+setCount(prev => prev + 1);
+setCount(prev => prev + 1);
+setCount(prev => prev + 1);
+```
+
+* React executes each updater function in order, **using the most recent state**.
+* So this becomes:
+
+  * First call: `setCount(prev => 70)`
+  * Second call: `setCount(prev => 71)`
+  * Third call: `setCount(prev => 72)`
+* Final state = **72**
+
+---
+
+### 📌 README Note (you can paste this directly at the end)
+
+````md
+### ⚠️ React State Update Note
+
+When updating state multiple times in a row, **avoid using the direct value** like `setCount(count + 1)` if the updates depend on the previous state. React batches updates and `count` will still reference the same value within that synchronous block.
+
+**Incorrect:**
+```js
+setCount(count + 1);
+setCount(count + 1);
+setCount(count + 1); // Only increments once
+````
+
+**Correct:**
+
+```js
+setCount(prev => prev + 1);
+setCount(prev => prev + 1);
+setCount(prev => prev + 1); // Increments correctly to +3
+```
+
+🔄 Use the functional updater form (`setCount(prev => prev + 1)`) to ensure each update is based on the **latest state value**.
+
+```
+
+Let me know if you'd like it styled for a specific framework or markdown flavor (like GitHub, Docusaurus, etc.)!
+```
+
+
+---
 ## 🚀 How to Run This Project
 
 ### Prerequisites
