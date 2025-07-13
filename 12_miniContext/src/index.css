@@ -1,0 +1,17 @@
+/* You can add this to src/index.css */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #242424;
+    color: #e0e0e0;
+}
+
+/* Optional: Style links for dark theme */
+a {
+    color: #4dabf7;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
